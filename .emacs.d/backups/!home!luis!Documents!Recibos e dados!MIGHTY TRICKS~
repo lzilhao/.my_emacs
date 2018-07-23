@@ -1,0 +1,47 @@
+SSH:
+Para não fazeres sempre login em várias ligações de ssh:
+Abre o .ssh/config (no cliente) e põe
+
+host *
+  ControlMaster auto
+  ControlPath ~/.ssh/ssh_mux_%h_%p_%r
+Assim só a primeira ligação é que precisa de autenticação, as subsequentes vao partilhar essa
+
+Para manter serviços a correr depois de usar ssh, instala o tmux na máquina remota, corre e usa como se fosse um terminal normal.
+Se saires, faz ssh outra vez e tmux attach e voltas a onde estavas
+
+Queres trocar bindings no bash? Adiciona ao .bashrc
+Exemplo:
+Por o ctrl+backspace a apagar até à /
+bind '\C-H:unix-filename-rubout'
+Tens é de descobrir o keycode de ctrl+backspace.
+Para fazer isso faz ctrl+v e ctrl+backspace
+
+Para python chamar o python 3 poe um alias no .bashrc
+alias python=python3
+
+Poe emacs --daemon nas startup apps e depois crias um emacs.24.desktop em .local/share/applications
+[Desktop Entry]
+Name=Emacs
+GenericName=Text Editor
+Comment=Edit text
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Exec=emacsclient -c -e "(select-frame-set-input-focus (selected-frame))" %F
+Icon=emacs
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;
+StartupWMClass=Emacs
+Keywords=Text;Editor;
+
+assim, todas as instancias do emacs abre com o emacsclient, fica muito mais rapido porque já tens o server a correr
+os argumentos no Exec é para abrir o cliente GUI e receber o argumento como expressão lisp, e faz select da frame
+
+Networking:
+
+para fazer um scan e veres os ports todos tens de especificar a range no nmap com -p
+exemplo: nmap 192.168.1.1 -p 1-65535
+senão ele apenas testa os mais conhecidos
+
+Gestão:
+usa o smem para veres a memória de vários processos
