@@ -126,8 +126,9 @@ With argument, do this that many times."
 
 (global-set-key (read-kbd-macro "<M-DEL>") 'backward-delete-word)
 
-(setq column-number-mode t) ;; mostra o numero da coluna
- ;;desliga highlight
+(show-paren-mode 1)
+
+;;desliga highlight
 ;;(defun my-emacs-lisp-mode-hook ()
 ;;  (highlight-indentation))
 ;;(add-hook 'emacs-lisp-mode-hook 'my-emacs-lisp-mode-hook)
