@@ -12,7 +12,8 @@
    (quote
     ("b2ecd9aff80c47b3b18cfaa6b8ef8b9f0575168f9ef3ce7be85f63f959138ced" "e52718d4b950106873fed00c469941ad8db20f02392d2c7ac184c6defe37ad2c" "705663330a37fa0a5468a4423529e909005f1fde9042fefb025d507a7715efe0" "d409bcd828a041ca8c28433e26d1f8a8e2f0c29c12c861db239845f715a9ea97" default)))
  '(electric-indent-mode t)
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(package-selected-packages (quote (names multiple-cursors elpy auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -127,6 +128,23 @@ With argument, do this that many times."
 (global-set-key (read-kbd-macro "<M-DEL>") 'backward-delete-word)
 
 (show-paren-mode 1)
+
+(defun windmove-emacs-or-tmux(dir tmux-cmd)
+(interactive)
+(if (ignore-errors (funcall (intern (concat "windmove-" dir))))
+nil                       ;; Moving within emacs
+(shell-command tmux-cmd)) ;; At edges, send command to tmux
+)
+
+(global-set-key (kbd "C-k")
+   '(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key (kbd "C-j")
+   '(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
+(global-set-key (kbd "C-l")
+   '(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
+(global-set-key (kbd "C-h")
+   '(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
+		
 
 ;;desliga highlight
 ;;(defun my-emacs-lisp-mode-hook ()
