@@ -19,7 +19,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-done ((t (:foreground "black" :weight bold))))
+ '(org-todo ((t (:foreground "Red" :weight bold)))))
 
 ;; activates packages before loading full .emacs file
 ;;(setq package-enable-at-startup nil)
@@ -128,6 +129,24 @@ With argument, do this that many times."
 (global-set-key (read-kbd-macro "<M-DEL>") 'backward-delete-word)
 
 (show-paren-mode 1)
+
+(defface org-checkbox-todo-text
+    '((t (:inherit org-todo)))
+    "Face for the text part of an unchecked org-mode checkbox.")
+
+(font-lock-add-keywords
+ 'org-mode
+ `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?: \\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-checkbox-todo-text prepend))
+ 'append)
+
+(defface org-checkbox-done-text
+    '((t (:inherit org-done)))
+    "Face for the text part of a checked org-mode checkbox.")
+
+(font-lock-add-keywords
+ 'org-mode
+ `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:X\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-checkbox-done-text prepend))
+ 'append)
 
 ;;(defun windmove-emacs-or-tmux(dir tmux-cmd)
 ;;(interactive)
