@@ -148,6 +148,16 @@ With argument, do this that many times."
  `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:X\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-checkbox-done-text prepend))
  'append)
 
+(defface org-checkbox-intermediate-text
+    '((t (:inherit org-todo)))
+    "Face for the text part of an intermediate org-mode checkbox.")
+
+(font-lock-add-keywords
+ 'org-mode
+ `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:-\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-checkbox-intermediate-text prepend))
+ 'append)
+
+
 ;;(defun windmove-emacs-or-tmux(dir tmux-cmd)
 ;;(interactive)
 ;;(if (ignore-errors (funcall (intern (concat "windmove-" dir))))
